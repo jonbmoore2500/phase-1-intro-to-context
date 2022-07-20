@@ -195,7 +195,7 @@ below. A function _signature_ is the function name, the arguments it expects,
 and what the function returns. Pay close attention to the description of each
 function's expected behavior.
 
-### `createEmployeeRecord`
+### `createEmployeeRecord` DONE
 
 * **Argument(s)**
   * A 4-element Array of a `String`, `String`, `String`, and `Number`
@@ -213,7 +213,7 @@ function's expected behavior.
     _Additionally_, initialize empty `Array`s on the properties `timeInEvents`
     and `timeOutEvents`.
 
-### `createEmployeeRecords`
+### `createEmployeeRecords` DONE
 
 * **Argument(s)**
   * `Array` of `Arrays`
@@ -223,7 +223,7 @@ function's expected behavior.
   * Converts each nested `Array` into an employee record using
     `createEmployeeRecord` and accumulates it to a new `Array`
 
-### `createTimeInEvent`
+### `createTimeInEvent` DONE
 
 * **Argument(s)**
   * An employee record `Object`
@@ -237,7 +237,7 @@ function's expected behavior.
     * `hour`: Derived from the argument
     * `date`: Derived from the argument
 
-### `createTimeOutEvent`
+### `createTimeOutEvent` DONE
 
 * **Argument(s)**
   * An employee record `Object`
