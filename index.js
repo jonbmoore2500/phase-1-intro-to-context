@@ -1,4 +1,35 @@
 // Your code here
+const testObj = {
+    firstName: 'Frodo',
+    familyName: 'Baggins',
+    title: 'Ringbearer',
+    payPerHour: 25,
+    timeInEvents: [
+        {
+            type: 'TimeIn',
+            hour: 1200,
+            date: '2022-01-01'
+        }, 
+        {
+            type: 'TimeIn',
+            hour: 1300,
+            date: '2022-01-02'
+        }
+    ],
+    timeOutEvents: [
+        {
+            type: 'TimeOut',
+            hour: 1500,
+            date: '2022-01-01'
+        },
+        {
+            type: 'TimeOut',
+            hour: 1700,
+            date: '2022-01-02'
+        }
+    ]
+}
+
 
 function createEmployeeRecord(emplArr) {
     // creates a record object for a new employee, assigns identifying info and 
@@ -42,5 +73,51 @@ function createTimeOutEvent(empObj, clockOutStamp) {
     return empObj
 }
 
-//console.log("YYYY-MM-DD HHMM".slice(-4, -2))
-//console.log(createEmployeeRecords([['John', 'Smith', 'Manager', 30], ['Steve', 'Griffin', 'Assistant', 20]]))
+function hoursWorkedOnDate(empObj, dateStamp) {
+    // locates timeIn and timeOut values for a given employee on given day,
+    // returns hours worked (difference between timeIn and timeOut)
+    let timeIn
+    let timeOut
+    
+    for (let eventId = 0; eventId < empObj.timeInEvents.length; eventId++) {
+        if (empObj.timeInEvents[eventId].date === dateStamp) {
+            timeIn = parseInt(empObj.timeInEvents[eventId].hour)/100
+        }
+        if (empObj.timeInEvents[eventId].date === dateStamp) {
+            timeOut = parseInt(empObj.timeOutEvents[eventId].hour)/100
+        }
+    }
+    return timeOut-timeIn
+}
+
+function wagesEarnedOnDate(empObj, dateStamp) {
+    let hoursWorked = hoursWorkedOnDate(empObj, dateStamp)
+    let payRate = empObj.payPerHour
+    return hoursWorked*payRate
+}
+
+function allWagesFor(empObj) {
+    // populates array with all dates worked by given employee
+    // maps the total daily pay into new array, reduces for total value
+    let datesWorked = []
+    empObj.timeInEvents.forEach(clockEvent => {
+        datesWorked.push(clockEvent.date)
+    })
+    let wagesArr = datesWorked.map(dateStamp => wagesEarnedOnDate(empObj, dateStamp))
+    return wagesArr.reduce((previous, current) => {
+        return previous + current
+    }, 0)
+}
+
+function calculatePayroll(empsArr) {
+    let totalPayPerEmpArr = empsArr.map(empObj => allWagesFor(empObj))
+    return totalPayPerEmpArr.reduce((previous, current) => {
+        return previous + current
+    }, 0)
+}
+
+
+
+//console.log(allWagesFor(testObj))
+
+//createEmployeeRecords([['John', 'Smith', 'Manager', 30], ['Steve', 'Griffin', 'Assistant', 20]])
